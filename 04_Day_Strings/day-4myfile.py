@@ -38,3 +38,29 @@ print('   Coding For All      '.strip())
 print('30DaysOfPython'.isidentifier())
 print('thirty_days_of_python'.isidentifier())
 
+#32
+lib = ['Django', 'Flask', 'Bottle', 'Pyramid', 'Falcon']
+print(' '.join(lib))
+
+#33
+print('I am enjoying this challenge.\nI just wonder what is next.')
+
+#34
+print("Name\t\tAge\tCountry\t\tCity")
+print("Asabeneh\t250\tFinland\t\tHelsinki")
+
+#35
+radius = 10
+area = int(3.14 * radius ** 2)
+print('The area of a circle with radius {} is {} meters square.'.format(radius,area))
+
+#36
+a, b = 8, 6
+
+print(f"{a} + {b} = {a + b}")
+print(f"{a} - {b} = {a - b}")
+print(f"{a} * {b} = {a * b}")
+print(f"{a} / {b} = {a / b:.2f}")   # 2 decimal places
+print(f"{a} % {b} = {a % b}")
+print(f"{a} // {b} = {a // b}")
+print(f"{a} ** {b} = {a ** b}")
