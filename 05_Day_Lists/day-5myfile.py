@@ -56,5 +56,20 @@ print(companies[0:3])
 print(companies[-1:-3])
 
 #20
-n = int(len(companies))
-print(companies[n/2,(n/2)+1])
+#n = int(len(companies))
+#print(companies[n/2,(n/2)+1])
+
+#21
+companies.pop(0)
+
+#22
+companies.pop(4)
+
+#23
+companies.pop()
+
+#24
+companies.clear()
+
+#25
+del companies
