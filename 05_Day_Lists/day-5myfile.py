@@ -19,3 +19,11 @@ companies = ['Facebook', 'Google', 'Microsoft', 'Apple','IBM', 'Oracle ','Amazon
 print(companies)
 
 #8
+print(len(companies))
+
+#9
+print(companies[0:7:3])
+
+#10
+companies[0]="Netflix"
+print(companies)
