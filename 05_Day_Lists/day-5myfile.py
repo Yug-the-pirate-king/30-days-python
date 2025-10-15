@@ -27,3 +27,18 @@ print(companies[0:7:3])
 #10
 companies[0]="Netflix"
 print(companies)
+
+#11
+companies.append("TCS")
+
+#12
+companies.insert(4,"Infosys")
+
+#13
+companies[4] = companies[4].upper()
+
+#14
+companies += "#"
+
+#15
+print(companies.index('Google'))
