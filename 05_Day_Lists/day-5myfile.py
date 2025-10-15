@@ -42,3 +42,19 @@ companies += "#"
 
 #15
 print(companies.index('Google'))
+
+#16
+companies.sort()
+
+#17
+companies.sort(reverse=True)
+
+#18
+print(companies[0:3])
+
+#19
+print(companies[-1:-3])
+
+#20
+n = int(len(companies))
+print(companies[n/2,(n/2)+1])
