@@ -73,3 +73,18 @@ companies.clear()
 
 #25
 del companies
+
+#26
+front_end = ['HTML', 'CSS', 'JS', 'React', 'Redux']
+back_end = ['Node','Express', 'MongoDB']
+
+fullStack = front_end+back_end
+
+#27
+full_stack = fullStack.copy()
+full_stack.insert(5,"Python")
+full_stack.insert(6,"SQL")
+
+print(full_stack)
+
+#level 2
