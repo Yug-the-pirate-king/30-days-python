@@ -27,16 +27,19 @@ food_stuff_tp = fruits + vegetables
 #3
 food_stuff_lt = list(food_stuff_tp)
 
-#print(food_stuff_lt)
+print(food_stuff_lt)
 
 #4
 
 #5
-#print(food_stuff_tp[0:3])
-#print(food_stuff_tp[-3:])
+print(food_stuff_tp[0:3])
+print(food_stuff_tp[-3:])
 
 #6
 del food_stuff_tp
 
 #7
+nordic_countries = ('Denmark', 'Finland','Iceland', 'Norway', 'Sweden')
 
+print('Estonia' in nordic_countries)
+print('Iceland' in nordic_countries)
