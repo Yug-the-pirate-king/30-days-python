@@ -31,5 +31,33 @@ print("is A subset of B :",A.issubset(B))
 #4
 print("Is A and B disjoint set :",A.isdisjoint(B))
 
-#5
-print("Join A with B and B with A :",(A.difference(B)).join(B.difference(A)))
+#5 , 6
+print(A.symmetric_difference(B))
+
+#7
+del it_companies
+del A
+del B
+
+#level3
+#1
+ages_set = set(age)
+
+#2
+print("List length:", len(age))
+print("Set length:", len(ages_set))
+
+if len(age) > len(ages_set):
+    print("The list is bigger (it contains duplicates).")
+else:
+    print("The set is bigger or equal.")
+
+#3
+sentence ="I am a teacher and I love to inspire and teach people"
+
+word = sentence.split()
+
+unique_words = set(word)
+
+print(unique_words)
+print(len(unique_words))
