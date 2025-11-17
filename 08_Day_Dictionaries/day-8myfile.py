@@ -58,5 +58,5 @@ print(student_list)
 print(student.pop('last_name'))
 
 #Q11
-print(dog.clear())
+del dog
 
