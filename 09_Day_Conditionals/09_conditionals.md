@@ -234,7 +234,7 @@ Enter number two: 3
    1. Write a code which gives grade to students according to theirs scores:
 
         ```sh
-        80-100, A
+        90-100, A
         70-89, B
         60-69, C
         50-59, D
