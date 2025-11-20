@@ -194,6 +194,13 @@ countries = [
   'Zimbabwe',
 ]
 
-reuslt = [country for country in countries if "land" in country.lower()]
+# reuslt = [country for country in countries if "land" in country.lower()]
 
-print(reuslt)
+# print(reuslt)
+
+furit = ['banana', 'orange', 'mango', 'lemon'] 
+rev_furit = []
+
+for i in range(len(furit)):
+    rev_furit.append(furit.pop())
+print(rev_furit)
