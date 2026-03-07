@@ -17,3 +17,10 @@ def new_random_user_id(length,i):
 
 new_random_user_id(16,3)
 
+def rgb():
+    color_values = [str(random.randint(0, 255)) for _ in range(3)]
+    
+    return ','.join(color_values)
+
+print(rgb())
+print(rgb())
