@@ -1,19 +1,16 @@
-#Q1
+# Exercise 1: Create an empty dictionary for a pet.
+pet_dog = {}
 
-dog = {}
+# Exercise 2: Populate the pet dictionary with details.
+pet_dog["name"] = "Khushi"
+pet_dog["color"] = "white"
+pet_dog["breed"] = "Akita"
+pet_dog["legs"] = 4
+pet_dog["age"] = 5
+print(pet_dog)
 
-#Q2
-
-dog['name']='Khushi'
-dog['color']='white'
-dog['breed']='Akita'
-dog['leg']=4
-dog["age"]=5
-print(dog)
-
-#Q3
-
-student = {
+# Exercise 3: Create a student profile dictionary.
+student_profile = {
     "first_name": "Yug",
     "last_name": "Shah",
     "gender": "Male",
@@ -22,41 +19,33 @@ student = {
     "skills": ["Python", "JavaScript"],
     "country": "India",
     "city": "Ahmedabad",
-    "address": "Some Street, Some Area"
+    "address": "Some Street, Some Area",
 }
 
-#Q4
+# Exercise 4: Print the number of keys in the student profile.
+print(len(student_profile))
 
-print(len(student))
+# Exercise 5: Print the data type of the 'skills' value.
+print(type(student_profile["skills"]))
 
-#Q5
+# Exercise 6: Add a new skill and display the updated skills list.
+student_profile["skills"].append("C++")
+print(student_profile["skills"])
 
-print(type(student["skills"]))
+# Exercise 7: Extract all dictionary keys into a list.
+student_keys = list(student_profile.keys())
+print(student_keys)
 
-#Q6
+# Exercise 8: Extract all dictionary values into a list.
+student_values = list(student_profile.values())
+print(student_values)
 
-student['skills'].append("C++")
-print(student["skills"])
+# Exercise 9: Extract all key-value pairs as a list of tuples.
+student_items = list(student_profile.items())
+print(student_items)
 
-#Q7
+# Exercise 10: Remove and print the 'last_name' entry.
+print(student_profile.pop("last_name"))
 
-keys_list = list(student.keys())
-print(keys_list)
-
-#Q8
-
-value_list = list(student.values())
-print(value_list)
-
-#Q9
-
-student_list = list(student.items())
-print(student_list)
-
-#Q10
-
-print(student.pop('last_name'))
-
-#Q11
-del dog
-
+# Exercise 11: Delete the pet dictionary to free the variable.
+del pet_dog
