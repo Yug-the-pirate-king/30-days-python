@@ -1,88 +1,137 @@
-
-#level 1
-# age = int(input("Enter your age: "))
-
-# if age >= 18:
-#     print("You are old enough to learn to drive.")
-# else:
-#     print("You need "+str(18-age)+" more years to learn to drive.")
+# Helper functions for safe input handling and reusable logic
 
 
-# age_2 = int(input("Enter your age:"))
+def get_int_input(prompt):
+    """Prompt the user until a valid integer is entered."""
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Invalid input. Please enter a whole number.")
 
-# if age_2-25==1:
-#     print("You are 1 year older than me.")
-# elif 25-age_2 == 1:
-#     print("You are 1 year younger then me.")
-# elif age_2 == 25:
-#     print("We have the same age.")
-# elif age_2>= 26:
-#     print("You are "+str(age_2-25)+" years older than me.")
-# else:
-#     print("You are "+str(25-age_2)+" years younger then me.")
 
-# a = int(input("Enter number one : "))
-# b = int(input("Enter number two : "))
+def check_driving_eligibility(age):
+    """Print whether the user is old enough to learn to drive."""
+    if age >= 18:
+        print("You are old enough to learn to drive.")
+    else:
+        print(f"You need {18 - age} more years to learn to drive.")
 
-# print(str(a)+" is greater than "+str(b)) if a > b else print(str(b)+" is greater than "+str(a))
 
-#level 2
-# scores = int(input("Enter your scores :"))
+def compare_ages(my_age, other_age):
+    """Compare another person's age to mine and print the difference."""
+    diff = other_age - my_age
+    if diff == 0:
+        print("We have the same age.")
+    elif diff == 1:
+        print("You are 1 year older than me.")
+    elif diff == -1:
+        print("You are 1 year younger then me.")
+    elif diff > 1:
+        print(f"You are {diff} years older than me.")
+    else:
+        print(f"You are {-diff} years younger then me.")
 
-# if scores <=100 and scores >= 80 :
-#     print("A")
-# elif scores <= 79 and scores >= 70 :
-#     print("B")
-# elif scores <= 69 and scores >= 60 :
-#     print("C")
-# elif scores <= 59 and scores >= 50 :
-#     print("D")
-# elif scores <= 49 and scores >= 0 :
-#     print("F")
 
-# Program to check the season based on month
+def compare_numbers(a, b):
+    """Print which of two numbers is greater."""
+    if a > b:
+        print(f"{a} is greater than {b}")
+    else:
+        print(f"{b} is greater than {a}")
 
-# month = input("Enter the month: ").strip().capitalize()
 
-# if month in ["September", "October", "November"]:
-#     print("The season is Autumn.")
-# elif month in ["December", "January", "February"]:
-#     print("The season is Winter.")
-# elif month in ["March", "April", "May"]:
-#     print("The season is Spring.")
-# elif month in ["June", "July", "August"]:
-#     print("The season is Summer.")
-# else:
-#     print("Invalid month entered.")
+def get_grade(score):
+    """Return the letter grade for a score between 0 and 100."""
+    if not 0 <= score <= 100:
+        return "Invalid score. Please enter a value between 0 and 100."
+    if score >= 80:
+        return "A"
+    elif score >= 70:
+        return "B"
+    elif score >= 60:
+        return "C"
+    elif score >= 50:
+        return "D"
+    else:
+        return "F"
+
+
+def get_season(month):
+    """Return the season for a given month name."""
+    month = month.strip().capitalize()
+    seasons = {
+        "Autumn": ["September", "October", "November"],
+        "Winter": ["December", "January", "February"],
+        "Spring": ["March", "April", "May"],
+        "Summer": ["June", "July", "August"],
+    }
+    for season, months in seasons.items():
+        if month in months:
+            return f"The season is {season}."
+    return "Invalid month entered."
+
+
+def manage_fruit_list(fruits, fruit):
+    """Add a fruit to the list if it does not already exist."""
+    fruit = fruit.strip().lower()
+    if not fruit:
+        print("Invalid fruit name.")
+        return
+    if fruit in fruits:
+        print("fruit does exist.")
+    else:
+        fruits.append(fruit)
+        print("fruit doesn't exist !, Added")
+        print(fruits)
+
+
+def get_middle_skill(person):
+    """Print the middle skill from the person's skill list, if available."""
+    skills = person.get("skills")
+    if not skills:
+        print("No Skill")
+        return
+    middle_index = len(skills) // 2
+    print(skills[middle_index])
+
+
+# Level 1
+# age = get_int_input("Enter your age: ")
+# check_driving_eligibility(age)
+
+# other_age = get_int_input("Enter your age:")
+# compare_ages(my_age=25, other_age=other_age)
+
+# a = get_int_input("Enter number one : ")
+# b = get_int_input("Enter number two : ")
+# compare_numbers(a, b)
+
+
+# Level 2
+# score = get_int_input("Enter your scores :")
+# print(get_grade(score))
+
+# month = input("Enter the month: ")
+# print(get_season(month))
 
 # fruits = ['banana', 'orange', 'mango', 'lemon']
+# user_fruit = input("Enter a fruit : ")
+# manage_fruit_list(fruits, user_fruit)
 
-# user_fruits = input("Enter a fruits : ")
 
-# if user_fruits in fruits:
-#     print("fruit does exist.")
-# else :
-#     fruits.append(user_fruits)
-#     print("fruit doesn't exist !, Added")
-#     print(fruits)
+# Level 3
+person = {
+    "first_name": "Asabeneh",
+    "last_name": "Yetayeh",
+    "age": 250,
+    "country": "Finland",
+    "is_marred": True,
+    "skills": ["JavaScript", "React", "Node", "MongoDB", "Python"],
+    "address": {
+        "street": "Space street",
+        "zipcode": "02210",
+    },
+}
 
-#level3
-
-person={
-    'first_name': 'Asabeneh',
-    'last_name': 'Yetayeh',
-    'age': 250,
-    'country': 'Finland',
-    'is_marred': True,
-    'skills': ['JavaScript', 'React', 'Node', 'MongoDB', 'Python'],
-    'address': {
-        'street': 'Space street',
-        'zipcode': '02210'
-    }
-    }
-
-if 'skills' in person:
-    middle_index = len(person['skills']) // 2
-    print(person['skills'][middle_index])
-else:
-    print("No Skill")
+get_middle_skill(person)
