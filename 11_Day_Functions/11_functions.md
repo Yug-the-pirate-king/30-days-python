@@ -55,8 +55,7 @@ When we make a function, we call it declaring a function. When we start using th
 # syntax
 # Declaring a function
 def function_name():
-    codes
-    codes
+    pass  # function body placeholder
 # Calling a function
 function_name()
 ```
@@ -68,19 +67,25 @@ Function can be declared without parameters.
 **Example:**
 
 ```py
-def generate_full_name ():
+def generate_full_name():
+    """Build and print a full name from hard-coded parts."""
     first_name = 'Asabeneh'
     last_name = 'Yetayeh'
-    space = ' '
-    full_name = first_name + space + last_name
+    full_name = f'{first_name} {last_name}'
     print(full_name)
-generate_full_name () # calling a function
 
-def add_two_numbers ():
+
+generate_full_name()  # calling a function
+
+
+def add_two_numbers():
+    """Print the sum of two hard-coded numbers."""
     num_one = 2
     num_two = 3
     total = num_one + num_two
     print(total)
+
+
 add_two_numbers()
 ```
 
@@ -89,19 +94,23 @@ add_two_numbers()
 Function can also return values, if a function does not have a return statement, the value of the function is None. Let us rewrite the above functions using return. From now on, we get a value from a function when we call the function and print it.
 
 ```py
-def generate_full_name ():
+def generate_full_name():
+    """Return a full name built from hard-coded parts."""
     first_name = 'Asabeneh'
     last_name = 'Yetayeh'
-    space = ' '
-    full_name = first_name + space + last_name
-    return full_name
+    return f'{first_name} {last_name}'
+
+
 print(generate_full_name())
 
-def add_two_numbers ():
+
+def add_two_numbers():
+    """Return the sum of two hard-coded numbers."""
     num_one = 2
     num_two = 3
-    total = num_one + num_two
-    return total
+    return num_one + num_two
+
+
 print(add_two_numbers())
 ```
 
@@ -115,8 +124,7 @@ In a function we can pass different data types(number, string, boolean, list, tu
   # syntax
   # Declaring a function
   def function_name(parameter):
-    codes
-    codes
+      pass  # function body placeholder
   # Calling function
   print(function_name(argument))
 ```
@@ -124,34 +132,49 @@ In a function we can pass different data types(number, string, boolean, list, tu
 **Example:**
 
 ```py
-def greetings (name):
-    message = name + ', welcome to Python for Everyone!'
-    return message
+def greetings(name):
+    """Return a personalised welcome message."""
+    return f'{name}, welcome to Python for Everyone!'
+
 
 print(greetings('Asabeneh'))
 
+
 def add_ten(num):
-    ten = 10
-    return num + ten
+    """Return the given number plus ten."""
+    return num + 10
+
+
 print(add_ten(90))
 
+
 def square_number(x):
+    """Return the square of x."""
     return x * x
+
+
 print(square_number(2))
 
-def area_of_circle (r):
+
+def area_of_circle(r):
+    """Return the area of a circle given its radius."""
     PI = 3.14
-    area = PI * r ** 2
-    return area
+    return PI * r ** 2
+
+
 print(area_of_circle(10))
 
+
 def sum_of_numbers(n):
+    """Return the sum of all integers from 0 to n (inclusive)."""
     total = 0
-    for i in range(n+1):
-        total+=i
-    print(total)
-print(sum_of_numbers(10)) # 55
-print(sum_of_numbers(100)) # 5050
+    for i in range(n + 1):
+        total += i
+    return total
+
+
+print(sum_of_numbers(10))   # 55
+print(sum_of_numbers(100))  # 5050
 ```
 
 - Two Parameter: A function may or may not have a parameter or parameters. A function may also have two or more parameters. If our function takes parameters we should call it with arguments. Let us check a function with two parameters:
@@ -160,8 +183,7 @@ print(sum_of_numbers(100)) # 5050
   # syntax
   # Declaring a function
   def function_name(para1, para2):
-    codes
-    codes
+      pass  # function body placeholder
   # Calling function
   print(function_name(arg1, arg2))
 ```
@@ -169,27 +191,38 @@ print(sum_of_numbers(100)) # 5050
 **Example:**
 
 ```py
-def generate_full_name (first_name, last_name):
-    space = ' '
-      full_name = first_name + space + last_name
-      return full_name
-print('Full Name: ', generate_full_name('Asabeneh','Yetayeh'))
+def generate_full_name(first_name, last_name):
+    """Return a full name made from first and last names."""
+    return f'{first_name} {last_name}'
 
-def sum_two_numbers (num_one, num_two):
-    sum = num_one + num_two
-    return sum
-print('Sum of two numbers: ', sum_two_numbers(1, 9))
 
-def calculate_age (current_year, birth_year):
+print('Full Name:', generate_full_name('Asabeneh', 'Yetayeh'))
+
+
+def sum_two_numbers(num_one, num_two):
+    """Return the sum of two numbers."""
+    return num_one + num_two
+
+
+print('Sum of two numbers:', sum_two_numbers(1, 9))
+
+
+def calculate_age(current_year, birth_year):
+    """Return the age for a given current and birth year."""
     age = current_year - birth_year
-    return age;
+    return age
 
-print('Age: ', calculate_age(2021, 1819))
 
-def weight_of_object (mass, gravity):
-    weight = str(mass * gravity)+ ' N' # the value has to be changed to a string first
-    return weight
-print('Weight of an object in Newtons: ', weight_of_object(100, 9.81))
+print('Age:', calculate_age(2021, 1819))
+
+
+def weight_of_object(mass, gravity):
+    """Return the weight as a formatted string with units."""
+    # The numeric result is formatted directly into a string.
+    return f'{mass * gravity} N'
+
+
+print('Weight of an object in Newtons:', weight_of_object(100, 9.81))
 ```
 
 ### Passing Arguments with Key and Value
@@ -200,25 +233,31 @@ If we pass the arguments with key and value, the order of the arguments does not
 # syntax
 # Declaring a function
 def function_name(para1, para2):
-    codes
-    codes
+    pass  # function body placeholder
 # Calling function
-print(function_name(para1 = 'John', para2 = 'Doe')) # the order of arguments does not matter here
+print(function_name(para1='John', para2='Doe'))  # the order of arguments does not matter here
 ```
 
 **Example:**
 
 ```py
 def print_fullname(firstname, lastname):
-    space = ' '
-    full_name = firstname  + space + lastname
+    """Print a full name built from keyword arguments."""
+    full_name = f'{firstname} {lastname}'
     print(full_name)
-print(print_fullname(firstname = 'Asabeneh', lastname = 'Yetayeh'))
 
-def add_two_numbers (num1, num2):
-    total = num1 + num2
-    print(total)
-print(add_two_numbers(num2 = 3, num1 = 2)) # Order does not matter
+
+# Call using keyword arguments; order does not matter.
+print_fullname(firstname='Asabeneh', lastname='Yetayeh')
+
+
+def add_two_numbers(num1, num2):
+    """Return the sum of two keyword arguments."""
+    return num1 + num2
+
+
+# Order does not matter when arguments are passed by name.
+print(add_two_numbers(num2=3, num1=2))
 ```
 
 ### Function Returning a Value - Part 2
@@ -230,14 +269,19 @@ If we do not return a value with a function, then our function is returning _Non
 
 ```py
 def print_name(firstname):
+    """Return the provided first name."""
     return firstname
-print_name('Asabeneh') # Asabeneh
+
+
+print(print_name('Asabeneh'))  # Asabeneh
+
 
 def print_full_name(firstname, lastname):
-    space = ' '
-    full_name = firstname  + space + lastname
-    return full_name
-print_full_name(firstname='Asabeneh', lastname='Yetayeh')
+    """Return a full name built from keyword arguments."""
+    return f'{firstname} {lastname}'
+
+
+print(print_full_name(firstname='Asabeneh', lastname='Yetayeh'))
 ```
 
 - Returning a number:
@@ -245,28 +289,36 @@ print_full_name(firstname='Asabeneh', lastname='Yetayeh')
 **Example:**
 
 ```py
-def add_two_numbers (num1, num2):
-    total = num1 + num2
-    return total
+def add_two_numbers(num1, num2):
+    """Return the sum of two numbers."""
+    return num1 + num2
+
+
 print(add_two_numbers(2, 3))
 
-def calculate_age (current_year, birth_year):
-    age = current_year - birth_year
-    return age;
-print('Age: ', calculate_age(2019, 1819))
+
+def calculate_age(current_year, birth_year):
+    """Return the age for a given current and birth year."""
+    return current_year - birth_year
+
+
+print('Age:', calculate_age(2019, 1819))
 ```
 
 - Returning a boolean:
   **Example:**
 
 ```py
-def is_even (n):
+def is_even(n):
+    """Return True if n is even, otherwise False."""
     if n % 2 == 0:
         print('even')
-        return True    # return stops further execution of the function, similar to break 
+        return True    # return stops further execution of the function, similar to break
     return False
-print(is_even(10)) # True
-print(is_even(7)) # False
+
+
+print(is_even(10))  # True
+print(is_even(7))   # False
 ```
 
 - Returning a list:
@@ -274,11 +326,14 @@ print(is_even(7)) # False
 
 ```py
 def find_even_numbers(n):
+    """Return a list of even numbers from 0 to n (inclusive)."""
     evens = []
     for i in range(n + 1):
         if i % 2 == 0:
             evens.append(i)
     return evens
+
+
 print(find_even_numbers(10))
 ```
 
@@ -289,9 +344,8 @@ Sometimes we pass default values to parameters, when we invoke the function. If 
 ```py
 # syntax
 # Declaring a function
-def function_name(param = value):
-    codes
-    codes
+def function_name(param=value):
+    pass  # function body placeholder
 # Calling function
 function_name()
 function_name(arg)
@@ -300,30 +354,42 @@ function_name(arg)
 **Example:**
 
 ```py
-def greetings (name = 'Peter'):
-    message = name + ', welcome to Python for Everyone!'
-    return message
+def greetings(name='Peter'):
+    """Return a welcome message, using a default name if none is supplied."""
+    return f'{name}, welcome to Python for Everyone!'
+
+
 print(greetings())
 print(greetings('Asabeneh'))
 
-def generate_full_name (first_name = 'Asabeneh', last_name = 'Yetayeh'):
-    space = ' '
-    full_name = first_name + space + last_name
-    return full_name
+
+def generate_full_name(first_name='Asabeneh', last_name='Yetayeh'):
+    """Return a full name, using defaults if arguments are omitted."""
+    return f'{first_name} {last_name}'
+
 
 print(generate_full_name())
-print(generate_full_name('David','Smith'))
+print(generate_full_name('David', 'Smith'))
 
-def calculate_age (birth_year,current_year = 2021):
-    age = current_year - birth_year
-    return age;
-print('Age: ', calculate_age(1821))
 
-def weight_of_object (mass, gravity = 9.81):
-    weight = str(mass * gravity)+ ' N' # the value has to be changed to string first
-    return weight
-print('Weight of an object in Newtons: ', weight_of_object(100)) # 9.81 - average gravity on Earth's surface
-print('Weight of an object in Newtons: ', weight_of_object(100, 1.62)) # gravity on the surface of the Moon
+def calculate_age(birth_year, current_year=2021):
+    """Return the age for a given birth year and current year."""
+    return current_year - birth_year
+
+
+print('Age:', calculate_age(1821))
+
+
+def weight_of_object(mass, gravity=9.81):
+    """Return weight as a formatted string with units."""
+    # The numeric result is formatted directly into a string.
+    return f'{mass * gravity} N'
+
+
+# 9.81 - average gravity on Earth's surface
+print('Weight of an object in Newtons:', weight_of_object(100))
+# gravity on the surface of the Moon
+print('Weight of an object in Newtons:', weight_of_object(100, 1.62))
 ```
 
 ### Arbitrary Number of Arguments
@@ -334,42 +400,54 @@ If we do not know the number of arguments we pass to our function, we can create
 # syntax
 # Declaring a function
 def function_name(*args):
-    codes
-    codes
+    pass  # function body placeholder
 # Calling function
-function_name(param1, param2, param3,..)
+function_name(param1, param2, param3)
 ```
 
 **Example:**
 
 ```py
 def sum_all_nums(*nums):
+    """Return the sum of an arbitrary number of numeric arguments."""
     total = 0
     for num in nums:
-        total += num     # same as total = total + num 
+        total += num     # same as total = total + num
     return total
-print(sum_all_nums(2, 3, 5)) # 10
+
+
+print(sum_all_nums(2, 3, 5))  # 10
 ```
 
 ### Default and Arbitrary Number of Parameters in Functions
 
 ```py
-def generate_groups (team,*args):
+def generate_groups(team, *args):
+    """Print the team name followed by an arbitrary number of members."""
     print(team)
-    for i in args:
-        print(i)
-print(generate_groups('Team-1','Asabeneh','Brook','David','Eyob'))
+    for member in args:
+        print(member)
+
+
+generate_groups('Team-1', 'Asabeneh', 'Brook', 'David', 'Eyob')
 ```
 
 ### Function as a Parameter of Another Function
 
 ```py
-#You can pass functions around as parameters
-def square_number (n):
+# You can pass functions around as parameters
+
+def square_number(n):
+    """Return the square of n."""
     return n * n
+
+
 def do_something(f, x):
+    """Apply the provided function f to the value x and return the result."""
     return f(x)
-print(do_something(square_number, 3)) # 27
+
+
+print(do_something(square_number, 3))  # 9
 ```
 
 🌕 You achieved quite a lot so far.  Keep going! You have just completed day 11 challenges and you are 11 steps a head in to your way to greatness. Now do some exercises for your brain and muscles.
@@ -395,7 +473,7 @@ Now it is time to express your thoughts about the Author and 30DaysOfPython. You
 ```py
 print(reverse_list([1, 2, 3, 4, 5]))
 # [5, 4, 3, 2, 1]
-print(reverse_list1(["A", "B", "C"]))
+print(reverse_list(["A", "B", "C"]))
 # ["C", "B", "A"]
 ```
 
@@ -404,16 +482,16 @@ print(reverse_list1(["A", "B", "C"]))
 
 ```py
 food_staff = ['Potato', 'Tomato', 'Mango', 'Milk']
-print(add_item(food_staff, 'Meat'))     # ['Potato', 'Tomato', 'Mango', 'Milk','Meat']
+print(add_item(food_staff, 'Meat'))     # ['Potato', 'Tomato', 'Mango', 'Milk', 'Meat']
 numbers = [2, 3, 7, 9]
-print(add_item(numbers, 5))      [2, 3, 7, 9, 5]
+print(add_item(numbers, 5))      # [2, 3, 7, 9, 5]
 ```
 
 12. Declare a function named remove_item. It takes a list and an item parameters. It returns a list with the item removed from it.
 
 ```py
 food_staff = ['Potato', 'Tomato', 'Mango', 'Milk']
-print(remove_item(food_staff, 'Mango'))  # ['Potato', 'Tomato', 'Milk'];
+print(remove_item(food_staff, 'Mango'))  # ['Potato', 'Tomato', 'Milk']
 numbers = [2, 3, 7, 9]
 print(remove_item(numbers, 3))  # [2, 7, 9]
 ```
@@ -421,13 +499,13 @@ print(remove_item(numbers, 3))  # [2, 7, 9]
 13. Declare a function named sum_of_numbers. It takes a number parameter and it adds all the numbers in that range.
 
 ```py
-print(sum_of_numbers(5))  # 15
-print(sum_of_numbers(10)) # 55
+print(sum_of_numbers(5))   # 15
+print(sum_of_numbers(10))  # 55
 print(sum_of_numbers(100)) # 5050
 ```
 
 14. Declare a function named sum_of_odds. It takes a number parameter and it adds all the odd numbers in that range.
-15. Declare a function named sum_of_even. It takes a number parameter and it adds all the even numbers in that - range.
+15. Declare a function named sum_of_even. It takes a number parameter and it adds all the even numbers in that range.
 
 ### Exercises: Level 2
 
