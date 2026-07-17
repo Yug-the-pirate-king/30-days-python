@@ -59,46 +59,45 @@ DELETE     用于对象删除
 
 ### 使用GET获取数据
 
-在这一步中，让我们使用虚拟数据并将其作为json返回。为了将其作为json返回，我们将使用json模块和Response模块。
+在这一步中，让我们使用虚拟数据并将其作为json返回。
 
 ```py
-# 导入flask
-
-from flask import Flask,  Response
-import json
+import os
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.route('/api/v1.0/students', methods = ['GET'])
-def students ():
-    student_list = [
+
+@app.route("/api/v1.0/students", methods=["GET"])
+def get_students():
+    students = [
         {
-            'name':'Asabeneh',
-            'country':'Finland',
-            'city':'Helsinki',
-            'skills':['HTML', 'CSS','JavaScript','Python']
+            "name": "Asabeneh",
+            "country": "Finland",
+            "city": "Helsinki",
+            "skills": ["HTML", "CSS", "JavaScript", "Python"],
         },
         {
-            'name':'David',
-            'country':'UK',
-            'city':'London',
-            'skills':['Python','MongoDB']
+            "name": "David",
+            "country": "UK",
+            "city": "London",
+            "skills": ["Python", "MongoDB"],
         },
         {
-            'name':'John',
-            'country':'Sweden',
-            'city':'Stockholm',
-            'skills':['Java','C#']
-        }
+            "name": "John",
+            "country": "Sweden",
+            "city": "Stockholm",
+            "skills": ["Java", "C#"],
+        },
     ]
-    return Response(json.dumps(student_list), mimetype='application/json')
+    return jsonify(students)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 部署时使用
     # 使其在生产和开发环境中都能工作
     port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
 ```
 
 当你在浏览器上请求http://localhost:5000/api/v1.0/students URL时，你将获得以下内容：
@@ -112,31 +111,32 @@ if __name__ == '__main__':
 我们不再显示虚拟数据，而是将Flask应用程序与MongoDB连接，并从MongoDB数据库获取数据。
 
 ```py
-# 导入flask
-
-from flask import Flask,  Response
-import json
+import os
+from flask import Flask, Response
+from bson.json_util import dumps
 import pymongo
-
 
 app = Flask(__name__)
 
-#
-MONGODB_URI='mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority'
+MONGODB_URI = os.environ.get(
+    "MONGODB_URI",
+    "mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority",
+)
 client = pymongo.MongoClient(MONGODB_URI)
-db = client['thirty_days_of_python'] # 访问数据库
-
-@app.route('/api/v1.0/students', methods = ['GET'])
-def students ():
-
-    return Response(json.dumps(student), mimetype='application/json')
+db = client["thirty_days_of_python"]  # 访问数据库
 
 
-if __name__ == '__main__':
+@app.route("/api/v1.0/students", methods=["GET"])
+def get_students():
+    students = list(db.students.find())
+    return Response(dumps(students), mimetype="application/json")
+
+
+if __name__ == "__main__":
     # 部署时使用
     # 使其在生产和开发环境中都能工作
     port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
 ```
 
 通过连接Flask，我们可以从thirty_days_of_python数据库中获取学生集合数据。
@@ -179,51 +179,53 @@ if __name__ == '__main__':
 http://localhost:5000/api/v1.0/students/5df68a21f106fe2d315bbc8b
 
 ```py
-# 导入flask
-
-from flask import Flask,  Response
-import json
+import os
+from flask import Flask, Response
 from bson.objectid import ObjectId
-import json
 from bson.json_util import dumps
 import pymongo
 
-
 app = Flask(__name__)
 
-#
-MONGODB_URI='mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority'
+MONGODB_URI = os.environ.get(
+    "MONGODB_URI",
+    "mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority",
+)
 client = pymongo.MongoClient(MONGODB_URI)
-db = client['thirty_days_of_python'] # 访问数据库
+db = client["thirty_days_of_python"]  # 访问数据库
 
-@app.route('/api/v1.0/students', methods = ['GET'])
-def students ():
 
-    return Response(json.dumps(student), mimetype='application/json')
-@app.route('/api/v1.0/students/<id>', methods = ['GET'])
-def single_student (id):
-    student = db.students.find({'_id':ObjectId(id)})
-    return Response(dumps(student), mimetype='application/json')
+@app.route("/api/v1.0/students", methods=["GET"])
+def get_students():
+    students = list(db.students.find())
+    return Response(dumps(students), mimetype="application/json")
 
-if __name__ == '__main__':
+
+@app.route("/api/v1.0/students/<string:student_id>", methods=["GET"])
+def get_student(student_id):
+    student = db.students.find_one({"_id": ObjectId(student_id)})
+    if student is None:
+        return Response(status=404)
+    return Response(dumps(student), mimetype="application/json")
+
+
+if __name__ == "__main__":
     # 部署时使用
     # 使其在生产和开发环境中都能工作
     port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
 ```
 
 ```sh
-[
-    {
-        "_id": {
-            "$oid": "5df68a21f106fe2d315bbc8b"
-        },
-        "name": "Asabeneh",
-        "country": "Finland",
-        "city": "Helsinki",
-        "age": 38
-    }
-]
+{
+    "_id": {
+        "$oid": "5df68a21f106fe2d315bbc8b"
+    },
+    "name": "Asabeneh",
+    "country": "Finland",
+    "city": "Helsinki",
+    "age": 38
+}
 ```
 
 ### 使用POST创建数据
@@ -231,224 +233,226 @@ if __name__ == '__main__':
 我们使用POST请求方法创建数据
 
 ```py
-# 导入flask
-
-from flask import Flask,  Response
-import json
+import os
+from datetime import datetime
+from flask import Flask, Response, request
 from bson.objectid import ObjectId
-import json
 from bson.json_util import dumps
 import pymongo
-from datetime import datetime
-
 
 app = Flask(__name__)
 
-#
-MONGODB_URI='mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority'
+MONGODB_URI = os.environ.get(
+    "MONGODB_URI",
+    "mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority",
+)
 client = pymongo.MongoClient(MONGODB_URI)
-db = client['thirty_days_of_python'] # 访问数据库
+db = client["thirty_days_of_python"]  # 访问数据库
 
-@app.route('/api/v1.0/students', methods = ['GET'])
-def students ():
 
-    return Response(json.dumps(student), mimetype='application/json')
-@app.route('/api/v1.0/students/<id>', methods = ['GET'])
-def single_student (id):
-    student = db.students.find({'_id':ObjectId(id)})
-    return Response(dumps(student), mimetype='application/json')
-@app.route('/api/v1.0/students', methods = ['POST'])
-def create_student ():
-    name = request.form['name']
-    country = request.form['country']
-    city = request.form['city']
-    skills = request.form['skills'].split(', ')
-    bio = request.form['bio']
-    birthyear = request.form['birthyear']
-    created_at = datetime.now()
-    student = {
-        'name': name,
-        'country': country,
-        'city': city,
-        'birthyear': birthyear,
-        'skills': skills,
-        'bio': bio,
-        'created_at': created_at
+@app.route("/api/v1.0/students", methods=["GET"])
+def get_students():
+    students = list(db.students.find())
+    return Response(dumps(students), mimetype="application/json")
 
+
+@app.route("/api/v1.0/students/<string:student_id>", methods=["GET"])
+def get_student(student_id):
+    student = db.students.find_one({"_id": ObjectId(student_id)})
+    if student is None:
+        return Response(status=404)
+    return Response(dumps(student), mimetype="application/json")
+
+
+@app.route("/api/v1.0/students", methods=["POST"])
+def create_student():
+    student_data = {
+        "name": request.form["name"],
+        "country": request.form["country"],
+        "city": request.form["city"],
+        "birthyear": request.form["birthyear"],
+        "skills": request.form["skills"].split(", "),
+        "bio": request.form["bio"],
+        "created_at": datetime.now(),
     }
-    db.students.insert_one(student)
-    return ;
-def update_student (id):
-if __name__ == '__main__':
+    result = db.students.insert_one(student_data)
+    new_student = db.students.find_one({"_id": result.inserted_id})
+    return Response(dumps(new_student), mimetype="application/json", status=201)
+
+
+if __name__ == "__main__":
     # 部署时使用
     # 使其在生产和开发环境中都能工作
     port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
 ```
 
 ### 使用PUT更新
 
 ```py
-# 导入flask
-
-from flask import Flask,  Response
-import json
+import os
+from datetime import datetime
+from flask import Flask, Response, request
 from bson.objectid import ObjectId
-import json
 from bson.json_util import dumps
 import pymongo
-from datetime import datetime
-
 
 app = Flask(__name__)
 
-#
-MONGODB_URI='mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority'
+MONGODB_URI = os.environ.get(
+    "MONGODB_URI",
+    "mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority",
+)
 client = pymongo.MongoClient(MONGODB_URI)
-db = client['thirty_days_of_python'] # 访问数据库
+db = client["thirty_days_of_python"]  # 访问数据库
 
-@app.route('/api/v1.0/students', methods = ['GET'])
-def students ():
 
-    return Response(json.dumps(student), mimetype='application/json')
-@app.route('/api/v1.0/students/<id>', methods = ['GET'])
-def single_student (id):
-    student = db.students.find({'_id':ObjectId(id)})
-    return Response(dumps(student), mimetype='application/json')
-@app.route('/api/v1.0/students', methods = ['POST'])
-def create_student ():
-    name = request.form['name']
-    country = request.form['country']
-    city = request.form['city']
-    skills = request.form['skills'].split(', ')
-    bio = request.form['bio']
-    birthyear = request.form['birthyear']
-    created_at = datetime.now()
-    student = {
-        'name': name,
-        'country': country,
-        'city': city,
-        'birthyear': birthyear,
-        'skills': skills,
-        'bio': bio,
-        'created_at': created_at
+@app.route("/api/v1.0/students", methods=["GET"])
+def get_students():
+    students = list(db.students.find())
+    return Response(dumps(students), mimetype="application/json")
 
+
+@app.route("/api/v1.0/students/<string:student_id>", methods=["GET"])
+def get_student(student_id):
+    student = db.students.find_one({"_id": ObjectId(student_id)})
+    if student is None:
+        return Response(status=404)
+    return Response(dumps(student), mimetype="application/json")
+
+
+@app.route("/api/v1.0/students", methods=["POST"])
+def create_student():
+    student_data = {
+        "name": request.form["name"],
+        "country": request.form["country"],
+        "city": request.form["city"],
+        "birthyear": request.form["birthyear"],
+        "skills": request.form["skills"].split(", "),
+        "bio": request.form["bio"],
+        "created_at": datetime.now(),
     }
-    db.students.insert_one(student)
-    return
-@app.route('/api/v1.0/students/<id>', methods = ['PUT']) # 这个装饰器创建主页路由
-def update_student (id):
-    query = {"_id":ObjectId(id)}
-    name = request.form['name']
-    country = request.form['country']
-    city = request.form['city']
-    skills = request.form['skills'].split(', ')
-    bio = request.form['bio']
-    birthyear = request.form['birthyear']
-    created_at = datetime.now()
-    student = {
-        'name': name,
-        'country': country,
-        'city': city,
-        'birthyear': birthyear,
-        'skills': skills,
-        'bio': bio,
-        'created_at': created_at
+    result = db.students.insert_one(student_data)
+    new_student = db.students.find_one({"_id": result.inserted_id})
+    return Response(dumps(new_student), mimetype="application/json", status=201)
 
+
+@app.route("/api/v1.0/students/<string:student_id>", methods=["PUT"])
+def update_student(student_id):
+    query = {"_id": ObjectId(student_id)}
+    update_data = {
+        "$set": {
+            "name": request.form["name"],
+            "country": request.form["country"],
+            "city": request.form["city"],
+            "birthyear": request.form["birthyear"],
+            "skills": request.form["skills"].split(", "),
+            "bio": request.form["bio"],
+            "updated_at": datetime.now(),
+        }
     }
-    db.students.update_one(query, student)
-    # return Response(dumps({"result":"a new student has been created"}), mimetype='application/json')
-    return
-def update_student (id):
-if __name__ == '__main__':
+    db.students.update_one(query, update_data)
+    updated_student = db.students.find_one(query)
+    if updated_student is None:
+        return Response(status=404)
+    return Response(dumps(updated_student), mimetype="application/json")
+
+
+if __name__ == "__main__":
     # 部署时使用
     # 使其在生产和开发环境中都能工作
     port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
 ```
 
 ### 使用Delete删除文档
 
 ```py
-# 导入flask
-
-from flask import Flask,  Response
-import json
+import os
+from datetime import datetime
+from flask import Flask, Response, request
 from bson.objectid import ObjectId
-import json
 from bson.json_util import dumps
 import pymongo
-from datetime import datetime
-
 
 app = Flask(__name__)
 
-#
-MONGODB_URI='mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority'
+MONGODB_URI = os.environ.get(
+    "MONGODB_URI",
+    "mongodb+srv://asabeneh:your_password@30daysofpython-twxkr.mongodb.net/test?retryWrites=true&w=majority",
+)
 client = pymongo.MongoClient(MONGODB_URI)
-db = client['thirty_days_of_python'] # 访问数据库
+db = client["thirty_days_of_python"]  # 访问数据库
 
-@app.route('/api/v1.0/students', methods = ['GET'])
-def students ():
 
-    return Response(json.dumps(student), mimetype='application/json')
-@app.route('/api/v1.0/students/<id>', methods = ['GET'])
-def single_student (id):
-    student = db.students.find({'_id':ObjectId(id)})
-    return Response(dumps(student), mimetype='application/json')
-@app.route('/api/v1.0/students', methods = ['POST'])
-def create_student ():
-    name = request.form['name']
-    country = request.form['country']
-    city = request.form['city']
-    skills = request.form['skills'].split(', ')
-    bio = request.form['bio']
-    birthyear = request.form['birthyear']
-    created_at = datetime.now()
-    student = {
-        'name': name,
-        'country': country,
-        'city': city,
-        'birthyear': birthyear,
-        'skills': skills,
-        'bio': bio,
-        'created_at': created_at
+@app.route("/api/v1.0/students", methods=["GET"])
+def get_students():
+    students = list(db.students.find())
+    return Response(dumps(students), mimetype="application/json")
 
+
+@app.route("/api/v1.0/students/<string:student_id>", methods=["GET"])
+def get_student(student_id):
+    student = db.students.find_one({"_id": ObjectId(student_id)})
+    if student is None:
+        return Response(status=404)
+    return Response(dumps(student), mimetype="application/json")
+
+
+@app.route("/api/v1.0/students", methods=["POST"])
+def create_student():
+    student_data = {
+        "name": request.form["name"],
+        "country": request.form["country"],
+        "city": request.form["city"],
+        "birthyear": request.form["birthyear"],
+        "skills": request.form["skills"].split(", "),
+        "bio": request.form["bio"],
+        "created_at": datetime.now(),
     }
-    db.students.insert_one(student)
-    return
-@app.route('/api/v1.0/students/<id>', methods = ['PUT']) # 这个装饰器创建主页路由
-def update_student (id):
-    query = {"_id":ObjectId(id)}
-    name = request.form['name']
-    country = request.form['country']
-    city = request.form['city']
-    skills = request.form['skills'].split(', ')
-    bio = request.form['bio']
-    birthyear = request.form['birthyear']
-    created_at = datetime.now()
-    student = {
-        'name': name,
-        'country': country,
-        'city': city,
-        'birthyear': birthyear,
-        'skills': skills,
-        'bio': bio,
-        'created_at': created_at
+    result = db.students.insert_one(student_data)
+    new_student = db.students.find_one({"_id": result.inserted_id})
+    return Response(dumps(new_student), mimetype="application/json", status=201)
 
+
+@app.route("/api/v1.0/students/<string:student_id>", methods=["PUT"])
+def update_student(student_id):
+    query = {"_id": ObjectId(student_id)}
+    update_data = {
+        "$set": {
+            "name": request.form["name"],
+            "country": request.form["country"],
+            "city": request.form["city"],
+            "birthyear": request.form["birthyear"],
+            "skills": request.form["skills"].split(", "),
+            "bio": request.form["bio"],
+            "updated_at": datetime.now(),
+        }
     }
-    db.students.update_one(query, student)
-    # return Response(dumps({"result":"a new student has been created"}), mimetype='application/json')
-    return ;
-@app.route('/api/v1.0/students/<id>', methods = ['DELETE'])
-def delete_student (id):
-    db.students.delete_one({"_id":ObjectId(id)})
-    return
-if __name__ == '__main__':
+    db.students.update_one(query, update_data)
+    updated_student = db.students.find_one(query)
+    if updated_student is None:
+        return Response(status=404)
+    return Response(dumps(updated_student), mimetype="application/json")
+
+
+@app.route("/api/v1.0/students/<string:student_id>", methods=["DELETE"])
+def delete_student(student_id):
+    query = {"_id": ObjectId(student_id)}
+    result = db.students.delete_one(query)
+    if result.deleted_count == 0:
+        return Response(status=404)
+    return Response(
+        dumps({"message": "Student deleted successfully"}),
+        mimetype="application/json",
+    )
+
+
+if __name__ == "__main__":
     # 部署时使用
     # 使其在生产和开发环境中都能工作
     port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
 ```
 
 ## 💻 练习：第29天
@@ -457,4 +461,4 @@ if __name__ == '__main__':
 
 🎉 恭喜！🎉
 
-[<< 第28天](./28_Day_API/28_API_cn.md) | [第30天 >>](./30_Day_Conclusions/30_conclusions_cn.md) 
+[<< 第28天](./28_Day_API/28_API_cn.md) | [第30天 >>](./30_Day_Conclusions/30_conclusions_cn.md)
