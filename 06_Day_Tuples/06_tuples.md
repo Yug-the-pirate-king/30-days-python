@@ -58,7 +58,7 @@ A tuple is a collection of different data types which is ordered and unchangeabl
   
   ```py
   # syntax
-  tpl = ('item1', 'item2','item3')
+  tpl = ('item1', 'item2', 'item3')
   ```
 
   ```py
@@ -92,8 +92,8 @@ len(tpl)
   fruits = ('banana', 'orange', 'mango', 'lemon')
   first_fruit = fruits[0]
   second_fruit = fruits[1]
-  last_index =len(fruits) - 1
-  last_fruit = fruits[las_index]
+  last_index = len(fruits) - 1
+  last_fruit = fruits[last_index]
   ```
 
 - Negative indexing
@@ -102,7 +102,7 @@ len(tpl)
 
   ```py
   # Syntax
-  tpl = ('item1', 'item2', 'item3','item4')
+  tpl = ('item1', 'item2', 'item3', 'item4')
   first_item = tpl[-4]
   second_item = tpl[-3]
   ```
@@ -122,17 +122,17 @@ We can slice out a sub-tuple by specifying a range of indexes where to start and
 
   ```py
   # Syntax
-  tpl = ('item1', 'item2', 'item3','item4')
-  all_items = tpl[0:4]         # all items
+  tpl = ('item1', 'item2', 'item3', 'item4')
+  all_items = tpl[0:4]        # all items
   all_items = tpl[0:]         # all items
   middle_two_items = tpl[1:3]  # does not include item at index 3
   ```
 
   ```py
   fruits = ('banana', 'orange', 'mango', 'lemon')
-  all_fruits = fruits[0:4]    # all items
-  all_fruits= fruits[0:]      # all items
-  orange_mango = fruits[1:3]  # doesn't include item at index 3
+  all_fruits = fruits[0:4]      # all items
+  all_fruits = fruits[0:]       # all items
+  orange_mango = fruits[1:3]    # doesn't include item at index 3
   orange_to_the_rest = fruits[1:]
   ```
 
@@ -140,15 +140,15 @@ We can slice out a sub-tuple by specifying a range of indexes where to start and
 
   ```py
   # Syntax
-  tpl = ('item1', 'item2', 'item3','item4')
-  all_items = tpl[-4:]         # all items
+  tpl = ('item1', 'item2', 'item3', 'item4')
+  all_items = tpl[-4:]           # all items
   middle_two_items = tpl[-3:-1]  # does not include item at index 3 (-1)
   ```
 
   ```py
   fruits = ('banana', 'orange', 'mango', 'lemon')
-  all_fruits = fruits[-4:]    # all items
-  orange_mango = fruits[-3:-1]  # doesn't include item at index 3
+  all_fruits = fruits[-4:]       # all items
+  orange_mango = fruits[-3:-1]   # doesn't include item at index 3
   orange_to_the_rest = fruits[-3:]
   ```
 
@@ -158,7 +158,7 @@ We can change tuples to lists and lists to tuples. Tuple is immutable if we want
 
 ```py
 # Syntax
-tpl = ('item1', 'item2', 'item3','item4')
+tpl = ('item1', 'item2', 'item3', 'item4')
 lst = list(tpl)
 ```
 
@@ -177,7 +177,7 @@ We can check if an item exists or not in a tuple using _in_, it returns a boolea
 
 ```py
 # Syntax
-tpl = ('item1', 'item2', 'item3','item4')
+tpl = ('item1', 'item2', 'item3', 'item4')
 'item2' in tpl # True
 ```
 
@@ -195,13 +195,13 @@ We can join two or more tuples using + operator
 ```py
 # syntax
 tpl1 = ('item1', 'item2', 'item3')
-tpl2 = ('item4', 'item5','item6')
+tpl2 = ('item4', 'item5', 'item6')
 tpl3 = tpl1 + tpl2
 ```
 
 ```py
 fruits = ('banana', 'orange', 'mango', 'lemon')
-vegetables = ('Tomato', 'Potato', 'Cabbage','Onion', 'Carrot')
+vegetables = ('Tomato', 'Potato', 'Cabbage', 'Onion', 'Carrot')
 fruits_and_vegetables = fruits + vegetables
 ```
 
@@ -213,7 +213,6 @@ It is not possible to remove a single item in a tuple but it is possible to dele
 # syntax
 tpl1 = ('item1', 'item2', 'item3')
 del tpl1
-
 ```
 
 ```py
@@ -237,17 +236,25 @@ del fruits
 
 1. Unpack siblings and parents from family_members
 1. Create fruits, vegetables and animal products tuples. Join the three tuples and assign it to a variable called food_stuff_tp.
-1. Change the about food_stuff_tp  tuple to a food_stuff_lt list
+1. Change the food_stuff_tp tuple to a food_stuff_lt list
 1. Slice out the middle item or items from the food_stuff_tp tuple or food_stuff_lt list.
-1. Slice out the first three items and the last three items from food_staff_lt list
-1. Delete the food_staff_tp tuple completely
-1. Check if an item exists in  tuple:
+1. Slice out the first three items and the last three items from food_stuff_lt list
+1. Delete the food_stuff_tp tuple completely
+1. Check if an item exists in tuple:
 
 - Check if 'Estonia' is a nordic country
 - Check if 'Iceland' is a nordic country
 
   ```py
-  nordic_countries = ('Denmark', 'Finland','Iceland', 'Norway', 'Sweden')
+  nordic_countries = ('Denmark', 'Finland', 'Iceland', 'Norway', 'Sweden')
+
+  def check_nordic(country, countries):
+      is_nordic = country in countries
+      print(f'{country} is a nordic country: {is_nordic}')
+      return is_nordic
+
+  check_nordic('Estonia', nordic_countries)
+  check_nordic('Iceland', nordic_countries)
   ```
 
 
